@@ -383,7 +383,7 @@ if ($custom_article_footer !== '') {
 <?php		//wfProfileIn( __METHOD__ . '-navigation'); 
 			global $wgScriptPath; ?>
 		<div id="widget_sidebar" class="reset widget_sidebar left_sidebar sidebar">
-			<div id="wiki_logo" style="background-image: url(<?php echo htmlspecialchars($wgScriptPath); ?>/<? $this->html( 'logopath' ) ?>);"><a href="<?php echo htmlspecialchars($this->data['nav_urls']['mainpage']['href'])?>" accesskey="z" rel="home"><?php echo $wgSitename ?></a></div>
+			<div id="wiki_logo" style="background-image: url(<? echo $this->html( 'logopath' ) ?>);"><a href="<?php echo htmlspecialchars($this->data['nav_urls']['mainpage']['href'])?>" accesskey="z" rel="home"><?php echo $wgSitename ?></a></div>
 
 			<!-- SEARCH/NAVIGATION -->
 			<div class="widget sidebox navigation_box" id="navigation_widget" role="navigation">
