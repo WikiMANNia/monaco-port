@@ -61,7 +61,7 @@ class SkinMonaco extends SkinTemplate {
 		$wgHooks['SkinTemplateOutputPageBeforeExec'][] = array(&$this, 'addVariables');
 
 		// Load the bulk of our scripts with the MediaWiki 1.17+ resource loader
-		$out->addModuleScripts('skins.monaco');
+		$out->addModules('skins.monaco');
 		
 		$out->addScript(
 			'<!--[if IE]><script type="' . htmlspecialchars($wgJsMimeType) .
@@ -192,7 +192,9 @@ class SkinMonaco extends SkinTemplate {
 	 */
 	public function addVariables(&$obj, &$tpl) {
 		//wfProfileIn(__METHOD__);
-		global $wgLang, $wgContLang, $wgUser, $wgRequest, $wgTitle, $parserMemc;
+		global $wgLang, $wgContLang, $wgUser, $wgRequest, $wgTitle;
+		
+		$pc = MediaWikiServices::getInstance()->getParserCache()->getCacheStorage();
 
 		// We want to cache populated data only if user language is same with wiki language
 		$cache = $wgLang->getCode() == $wgContLang->getCode();
@@ -201,7 +203,8 @@ class SkinMonaco extends SkinTemplate {
 
 		if($cache) {
 			$key = wfMemcKey('MonacoDataOld');
-			$data_array = $parserMemc->get($key);
+						
+			$data_array = $pc->get($key);
 		}
 
 		if(empty($data_array)) {
@@ -210,7 +213,7 @@ class SkinMonaco extends SkinTemplate {
 			$data_array['toolboxlinks'] = $this->getToolboxLinks();
 			//wfProfileOut(__METHOD__ . ' - DATA ARRAY');
 			if($cache) {
-				$parserMemc->set($key, $data_array, 4 * 60 * 60 /* 4 hours */);
+				$pc->set($key, $data_array, 4 * 60 * 60 /* 4 hours */);
 			}
 		}
 

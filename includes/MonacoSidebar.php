@@ -167,7 +167,7 @@ class MonacoSidebar {
         
 		if(count($nodes) > 0) {
 			
-			wfRunHooks('MonacoSidebarGetMenu', array(&$nodes));
+			Hooks::run('MonacoSidebarGetMenu', array(&$nodes));
 			
 			$mainMenu = array();
 			foreach($nodes[0]['children'] as $key => $val) {
