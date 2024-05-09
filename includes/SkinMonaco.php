@@ -109,11 +109,11 @@ class SkinMonaco extends SkinTemplate {
 			}
 		}
 		if ( preg_match('/[^a-z]/', $theme) ) {
-			$theme = "sapphire";
+			$theme = 'sapphire';
 		}
 		
 		// Theme is another conditional feature, we can't really resource load this
-		if ( isset($theme) && is_string($theme) && $theme != "sapphire" )
+		if ( isset($theme) && is_string($theme) && $theme != 'sapphire' )
 			$out->addStyle( "Monaco/style/{$theme}/css/main.css", 'screen' );
 		
 		// TODO: explicit RTL style sheets are supposed to be obsolete w/ResourceLoader
