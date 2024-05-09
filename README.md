@@ -17,7 +17,7 @@ continue to support them.
 
 New features in this fork over `haleyjd/monaco-port` include:  
 
-* First Version that support MediaWiki verison 1.31
+* First Version that support MediaWiki version 1.31
 * Tested with 1.27.7, 1.31.16, 1.35.14
 * Implementation of extending the Sidebar Menu with User and Group Sidebar Elements
   like Extension "DynamicSidebar"
@@ -50,7 +50,7 @@ all skins that are programmed using the MediaWiki 1.16 headElement code.
 
 Additionally you can install the ContentRightSidebar extension using:
 
-`require_once("$IP/skins/monaco/ContentRightSiebar.php");`
+`require_once("$IP/skins/monaco/ContentRightSidebar.php");`
 
 Doing so will provide you with a `<right-sidebar>...</right-sidebar>` tag which 
 will create right floated content in the page that will be moved into the right
@@ -65,5 +65,5 @@ since it also works with earlier versions of MediaWiki.
 
 License
 -------
-All of the code released by Wikia was made available under GPL v2.0 or later.
-This license can be found in the COPYING file.
+All of the code released by Wikia (now Fandom) was made available under GPL v2.0 or later.
+This license can be found in the LICENSE file.

@@ -20,7 +20,7 @@ class MonacoSidebar {
 		return true;
 	}
 
-	public $editUrl = false;
+	public $editUrl = '';
 
 	/**
 	 * Parse one line from MediaWiki message to array with indexes 'text' and 'href'
@@ -221,8 +221,8 @@ class MonacoSidebar {
 			$menu = Html::rawElement( 'ul', null, $menu );
 			$menu = Html::rawElement( 'nav', [ 'id' => 'navigation', 'class' => implode(' ', $classes) ], $menu );
 
-			if($this->editUrl) {
-				$menu = str_replace('href="editthispage"', 'href="'.$this->editUrl.'"', $menu);
+			if( !empty( $this->editUrl ) ) {
+				$menu = str_replace('href="editthispage"', 'href="' . $this->editUrl . '"', $menu);
 			} else {
 				$menu = preg_replace('/<!--b-->(.*)<!--e-->/U', '', $menu);
 			}
@@ -250,10 +250,6 @@ class MonacoSidebar {
 			}
 
 			$wgMemc->set($menuHash, $nodes, 60 * 60 * 24 * 3); // three days
-
-			// use AJAX request method to fetch JS code asynchronously
-			//$menuJSurl = Xml::encodeJsVar("{$wgScript}?action=ajax&v=" . self::version. "&rs=getMenu&id={$menuHash}");
-			//$menu .= "<script type=\"text/javascript\">/*<![CDATA[*/wsl.loadScriptAjax({$menuJSurl});/*]]>*/</script>";
 
 			return $menu;
 		}

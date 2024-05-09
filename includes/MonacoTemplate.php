@@ -68,7 +68,7 @@ class MonacoTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		//wfProfileIn( __METHOD__ );
+
 		global $wgContLang, $wgUser, $wgLogo, $wgStyleVersion, $wgRequest, $wgTitle, $wgSitename;
 		global $wgMonacoUseSitenoticeIsland;
 
@@ -88,12 +88,6 @@ class MonacoTemplate extends BaseTemplate {
 
 
 	$this->printAdditionalHead(); // @fixme not valid
-?>
-<?php		//wfProfileOut( __METHOD__ . '-head');  ?>
-
-<?php
-//wfProfileIn( __METHOD__ . '-body'); ?>
-<?php
 
 	// this hook allows adding extra HTML just after <body> opening tag
 	// append your content to $html variable instead of echoing
@@ -192,7 +186,7 @@ global $wgTitle, $wgOut;
 $custom_article_footer = '';
 $namespaceType = '';
 Hooks::run( 'CustomArticleFooter', [ &$this, &$tpl, &$custom_article_footer ] );
-if ($custom_article_footer !== '') {
+if ( !empty( $custom_article_footer ) ) {
 	echo $custom_article_footer;
 } else {
 	//default footer
@@ -222,7 +216,7 @@ if ($custom_article_footer !== '') {
 		if ($namespaceType == 'talk') {
 			$custom_article_footer = '';
 			Hooks::run('AddNewTalkSection', [ &$this, &$tpl, &$custom_article_footer ] );
-			if ($custom_article_footer != '')
+			if ( !empty( $custom_article_footer ) )
 				echo $custom_article_footer;
 		} else {
 			echo "								";
@@ -238,13 +232,13 @@ if ($custom_article_footer !== '') {
 
 		// haleyjd 20140801: Rewrite to use ContextSource/WikiPage instead of wgArticle global which has been removed from MediaWiki 1.23
 		$myContext = $this->getSkin()->getContext();
-		if($myContext->canUseWikiPage())
+		if( $myContext->canUseWikiPage() )
 		{
 			$wikiPage   = $myContext->getWikiPage();
 			$timestamp  = $wikiPage->getTimestamp();
 			$lastUpdate = $wgLang->date($timestamp);
 			$userId     = $wikiPage->getUser();
-			if($userId > 0)
+			if( $userId > 0 )
 			{
 				$user = User::newFromName($wikiPage->getUserText());
 				$userPageTitle  = $user->getUserPage();
@@ -252,12 +246,13 @@ if ($custom_article_footer !== '') {
 				$userPageExists = $userPageTitle->exists();
 				$userGender = $user->getOption( 'gender' );
 				$feUserIcon = $this->blankimg( [ 'id' => 'fe_user_img', 'alt' => '', 'class' => ($userGender == 'female' ? 'sprite user-female' : 'sprite user' ) ] );
-				if($userPageExists)
+				if( $userPageExists ) {
 					$feUserIcon = Html::rawElement( 'a', [ 'id' => 'fe_user_icon', 'href' => $userPageLink ], $feUserIcon );
+				}
 ?>
 								<li><?php echo $feUserIcon ?> <div><?php
 				// haleyjd 20171009: must use LinkRenderer for 1.28 and up
-				if(class_exists('\\MediaWiki\\MediaWikiServices') && method_exists('\\MediaWiki\\MediaWikiServices', 'getLinkRenderer')) {
+				if( class_exists('\\MediaWiki\\MediaWikiServices') && method_exists('\\MediaWiki\\MediaWikiServices', 'getLinkRenderer') ) {
 					$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 					echo wfMessage('monaco-footer-lastedit')->rawParams($linkRenderer->makeLink($userPageTitle, $user->getName(), [ 'id' => 'fe_user_link' ] ), Html::element( 'time', [ 'datetime' => wfTimestamp( TS_ISO_8601, $timestamp ) ], $lastUpdate))->escaped();
 				} else {
@@ -336,14 +331,14 @@ if ($custom_article_footer !== '') {
 <?php
 		}
 		$feRandIcon = $this->blankimg( [ 'id' => 'fe_random_img', 'class' => 'sprite random', 'alt' => '' ] );
-		$feRandIcon = Html::rawElement( 'a', [ 'id' => 'fe_random_icon', 'href' => Skin::makeSpecialUrl('Randompage') ], $feRandIcon);
-		$feRandLink = Html::rawElement( 'a', [ 'id' => 'fe_random_link', 'href' => Skin::makeSpecialUrl('Randompage') ], wfMessage('viewrandompage')->escaped());
+		$feRandIcon = Html::rawElement( 'a', [ 'id' => 'fe_random_icon', 'href' => Skin::makeSpecialUrl( 'Randompage' ) ], $feRandIcon );
+		$feRandLink = Html::rawElement( 'a', [ 'id' => 'fe_random_link', 'href' => Skin::makeSpecialUrl( 'Randompage' ) ], wfMessage( 'viewrandompage' )->escaped() );
 ?>
 							<ul class="actions clearfix" id="articleFooterActions2">
 								<li id="fe_randompage"><?php echo $feRandIcon ?> <div><?php echo $feRandLink ?></div></li>
 <?php
 		// haleyjd 20140426: support for Extension:MobileFrontend
-		if($this->get('mobileview') !== null)
+		if( !empty( $this->get( 'mobileview' ) ) )
 		{
 			$feMobileIcon = $this->blankimg( [ 'id' => 'fe_mobile_img', 'class' => 'sprite mobile', 'alt' => '' ] );
 			$this->set('mobileview', preg_replace('/(<a[^>]*?href[^>]*?)>/', '$1 rel="nofollow">', $this->get('mobileview')));
@@ -532,12 +527,21 @@ if ($custom_article_footer !== '') {
 		$linksArray[] = [ 'href' => $nav_urls['emailuser']['href'], 'text' => wfMessage('emailuser')->text() ];
 	}
 
-	if(is_array($linksArray) && count($linksArray) > 0) {
+	if( is_array( $linksArray ) && ( count( $linksArray ) > 0 ) ) {
 		global $wgSpecialPagesRequiredLogin;
-		for ($i = 0, $max = max(array_keys($linksArray)); $i <= $max; $i++) {
-			$item = isset($linksArray[$i]) ? $linksArray[$i] : false;
+
+		if ( !isset( $wgSpecialPagesRequiredLogin ) ) {
+			$wgSpecialPagesRequiredLogin = [];
+		}
+
+		for ( $i = 0, $max = max( array_keys( $linksArray ) ); $i <= $max; $i++ ) {
+			$item = isset( $linksArray[$i] ) ? $linksArray[$i] : false;
 			//Redirect to login page instead of showing error, see Login friction project
-			if ($item !== false && $wgUser->isAnon() && isset($item['specialCanonicalName']) && in_array($item['specialCanonicalName'], $wgSpecialPagesRequiredLogin)) {
+			if (	( $item !== false ) &&
+					$wgUser->isAnon() &&
+					isset( $item['specialCanonicalName'] ) &&
+					in_array( $item['specialCanonicalName'], $wgSpecialPagesRequiredLogin ) )
+			{
 				$returnto = SpecialPage::getTitleFor($item['specialCanonicalName'])->getPrefixedDBkey();
 				$item['href'] = SpecialPage::getTitleFor('UserLogin')->getLocalURL( [ 'returnto' => $returnto ] );
 			}
@@ -901,7 +905,7 @@ $this->html('reporttime');
 		foreach ( $this->data['articlelinks'] as $side => $links ) {
 			foreach ( $links as $key => $link ) {
 				$this->data['articlelinks'][$side][$key]['id'] = 'ca-$key';
-				if ( $side == 'left' && !isset($link['icon']) ) {
+				if ( ( $side == 'left' ) && !isset( $link['icon'] ) ) {
 					$this->data['articlelinks'][$side][$key]['icon'] = $key;
 				}
 			}
