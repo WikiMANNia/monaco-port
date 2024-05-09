@@ -936,7 +936,9 @@ $this->html('reporttime');
 		
 		$count = 0;
 		foreach( $bar as $list ) {
-			$count += count($list['links']);
+			if ( !empty( $list ) ) {
+				$count += count( $list['links'] );
+			}
 		}
 		$useCompactBar = $wgMonacoCompactSpecialPages && $count == 1;
 		$deferredList = null;
