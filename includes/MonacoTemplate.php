@@ -906,7 +906,7 @@ $this->html('reporttime');
 		foreach ( $this->data['articlelinks'] as $side => $links ) {
 			foreach ( $links as $key => $link ) {
 				$this->data['articlelinks'][$side][$key]['id'] = 'ca-$key';
-				if ( ( $side == 'left' ) && !isset( $link['icon'] ) ) {
+				if ( ( $side == 'left' ) && !isset($link['icon']) ) {
 					$this->data['articlelinks'][$side][$key]['icon'] = $key;
 				}
 			}
@@ -968,7 +968,7 @@ $this->html('reporttime');
 		$divClass = "reset color1 page_bar clearfix";
 		
 		foreach( $bar as $i => $list ) {
-			if ( $useCompactBar && $list['id'] == 'page_tabs' && !empty($list['links']) && isset($list['links']['nstab-special']) ) {
+			if ( $useCompactBar && ( $list['id'] == 'page_tabs' ) && !empty($list['links']) && isset($list['links']['nstab-special']) ) {
 				$deferredList = $list;
 				$deferredList['class'] .= ' compact_page_tabs';
 				$divClass .= ' compact_page_bar';

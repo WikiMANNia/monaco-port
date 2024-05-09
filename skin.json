@@ -1,6 +1,6 @@
 {
 	"name": "Monaco",
-	"version": "2.7.0",
+	"version": "2.8.0",
 	"requires": {
 		"MediaWiki": ">= 1.27.0"
 	},
@@ -23,6 +23,7 @@
 	},
 	"AutoloadClasses": {
 		"SkinMonaco": "includes/SkinMonaco.php",
+		"MonacoHooks": "includes/MonacoHooks.php",
 		"MonacoTemplate": "includes/MonacoTemplate.php",
 		"MonacoSidebar": "includes/MonacoSidebar.php"
 	},
@@ -45,8 +46,8 @@
 		"MonacoPatreonURL" : ""
     },		
 	"Hooks": {
-		"PageContentSaveComplete": [
-			"SkinMonaco::onPageContentSaveComplete"
+		"GetPreferences": [
+			"MonacoHooks::onGetPreferences"
 		],
 		"MessageCacheReplace": [
 			"MonacoSidebar::invalidateCache"
