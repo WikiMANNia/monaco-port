@@ -133,7 +133,7 @@ class MonacoTemplate extends BaseTemplate {
 
 	<div id="monaco_shrinkwrap_main" class="monaco_shrinkwrap with_left_sidebar<?php if ( $this->hasRightSidebar() ) { echo ' with_right_sidebar'; } ?>">
 		<div id="page_wrapper">
-<?php Hooks::run('MonacoBeforePage', [ $this ] ); ?>
+<?php Hooks::run('MonacoBeforePage', [ $this, &$html ] ); ?>
 <?php $this->printBeforePage(); ?>
 <?php if ( $wgMonacoUseSitenoticeIsland && $this->data['sitenotice'] ) { ?>
 			<div class="page">
@@ -150,7 +150,7 @@ class MonacoTemplate extends BaseTemplate {
 <?php		//wfProfileIn( __METHOD__ . '-article'); ?>
 				<article id="article" class="mw-body" role="main" aria-labelledby="firstHeading">
 					<a id="top"></a>
-					<?php Hooks::run('MonacoAfterArticle', [ $this ] ); ?>
+					<?php Hooks::run('MonacoAfterArticle', [ $this, &$html ] ); ?>
 					<?php if(!$wgMonacoUseSitenoticeIsland && $this->data['sitenotice']) { ?><div id="siteNotice"><?php $this->html('sitenotice') ?></div><?php } ?>
 					<?php if(method_exists($this, 'getIndicators')) { echo $this->getIndicators(); } ?>
 					<?php $this->printFirstHeading(); ?>
@@ -621,10 +621,11 @@ if ( !empty( $custom_article_footer ) ) {
 	//END: create static box
 ?>
 	</table>
+<?php		Hooks::run( 'MonacoStaticboxEnd', [ $this, &$html ] ); ?>
 			</div>
 			<!-- /SEARCH/NAVIGATION -->
 <?php		$this->printExtraSidebar(); ?>
-<?php		Hooks::run( 'MonacoSidebarEnd', [ $this ] ); ?>
+<?php		Hooks::run( 'MonacoSidebarEnd', [ $this, &$html ] ); ?>
 <?php		//wfProfileOut( __METHOD__ . '-navigation'); ?>
 <?php		//wfProfileIn( __METHOD__ . '-widgets'); ?>
 
