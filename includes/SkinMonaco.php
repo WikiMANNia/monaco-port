@@ -21,15 +21,17 @@ class SkinMonaco extends SkinTemplate {
 	/**
 	 * Overwrite few SkinTemplate methods which we don't need in Monaco
 	 */
-	function buildSidebar() {}
-	function getCopyrightIcon() {}
-	function getPoweredBy() {}
-	function disclaimerLink() {}
-	function privacyLink() {}
-	function aboutLink() {}
-	function getHostedBy() {}
-	function diggsLink() {}
-	function deliciousLink() {}
+	public function buildSidebar() {
+		return [];
+	}
+	public function getCopyrightIcon() {}
+	public function getPoweredBy() {}
+	public function disclaimerLink() {}
+	public function privacyLink() {}
+	public function aboutLink() {}
+	public function getHostedBy() {}
+	public function diggsLink() {}
+	public function deliciousLink() {}
 
     /**
      * @var Config
