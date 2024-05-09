@@ -52,7 +52,7 @@ class MonacoTemplate extends BaseTemplate {
 	 * have been implemented in a less ugly way.
 	 * @author Daniel Friesen
 	 */
-	function blankimg( $attrs = [] ) {
+	private function blankimg( $attrs = [] ) {
 		return Html::element( 'img', [ 'src' => $this->data['blankimg'] ] + $attrs );
 	}
 
@@ -62,12 +62,12 @@ class MonacoTemplate extends BaseTemplate {
 	 * 
 	 * @author Daniel Friesen
 	 */
-	function useUserMore() {
+	private function useUserMore() {
 		global $wgMonacoUseMoreButton;
 		return $wgMonacoUseMoreButton;
 	}
 
-	function execute() {
+	public function execute() {
 		//wfProfileIn( __METHOD__ );
 		global $wgContLang, $wgUser, $wgLogo, $wgStyleVersion, $wgRequest, $wgTitle, $wgSitename;
 		global $wgMonacoUseSitenoticeIsland;
@@ -300,7 +300,7 @@ if ($custom_article_footer !== '') {
 			}
 			if(!empty($nav_urls['recentchangeslinked']))
 			{
-				$feRecentIcon = $this->blankimg( [ 'id' => "fe_recent_img", 'class' => 'sprite recent', 'alt' => '' ] );
+				$feRecentIcon = $this->blankimg( [ 'id' => 'fe_recent_img', 'class' => 'sprite recent', 'alt' => '' ] );
 				$feRecentIcon = Html::rawElement( 'a', [ 'id' => 'fe_recent_icon', 'href' => $nav_urls['recentchangeslinked']['href'] ], $feRecentIcon);
 				$feRecentLink = Html::rawElement( 'a', [ 'id' => 'fe_recent_link', 'href' => $nav_urls['recentchangeslinked']['href'] ], wfMessage('recentchangeslinked')->escaped());
 ?>
@@ -480,7 +480,7 @@ if ($custom_article_footer !== '') {
 				if ( $url ) {
 					$dynamicLinksUser[$line] = [
 						'url' => $url,
-						'icon' => "edit", // @note Designers used messy css sprites so we can't really let this be customized easily
+						'icon' => 'edit', // @note Designers used messy css sprites so we can't really let this be customized easily
 					];
 				}
 			}
@@ -785,7 +785,7 @@ $this->html('reporttime');
 				// haleyjd 20140420: This needs to use $key => $value syntax to get the proper style for the elements!
 				foreach( [ 'username' => 'userpage', 'mytalk' => 'mytalk', 'watchlist' => 'watchlist' ] as $key => $value ) {
 					echo "				" . Html::rawElement( 'span', [ 'id' => "header_$key" ],
-						Html::element( 'a', [ 'href' => $this->data['userlinks'][$value]['href'] ] + Linker::tooltipAndAccesskeyAttribs("pt-$value"), $this->data['userlinks'][$value]['text'] ) ) . "\n";
+						Html::element( 'a', [ 'href' => $this->data['userlinks'][$value]['href'] ] + Linker::tooltipAndAccesskeyAttribs('pt-$value'), $this->data['userlinks'][$value]['text'] ) ) . "\n";
 				}
 				
 			?>
@@ -869,7 +869,7 @@ $this->html('reporttime');
 				<ul id="user_masthead_tabs" class="nav_links">
 <?php
 				foreach ( $this->data['articlelinks']['right'] as $navLink ) {
-					$class = "color1";
+					$class = 'color1';
 					if ( isset($navLink['class']) ) {
 						$class .= " {$navLink['class']}";
 					}
@@ -890,7 +890,7 @@ $this->html('reporttime');
 	function realPrintPageBar(){
 		foreach ( $this->data['articlelinks'] as $side => $links ) {
 			foreach ( $links as $key => $link ) {
-				$this->data['articlelinks'][$side][$key]['id'] = "ca-$key";
+				$this->data['articlelinks'][$side][$key]['id'] = 'ca-$key';
 				if ( $side == 'left' && !isset($link['icon']) ) {
 					$this->data['articlelinks'][$side][$key]['icon'] = $key;
 				}

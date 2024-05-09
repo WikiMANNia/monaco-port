@@ -9,9 +9,6 @@
  * @author Christian Williams
  * @author James Haley
  */
-if(!defined('MEDIAWIKI')) {
-	die(-1);
-}
 
 class MonacoSidebar {
 
@@ -28,6 +25,7 @@ class MonacoSidebar {
 	/**
 	 * Parse one line from MediaWiki message to array with indexes 'text' and 'href'
 	 *
+	 * @param string $line
 	 * @return array
 	 * @author Inez Korczynski <inez@wikia.com>
 	 */
@@ -90,7 +88,8 @@ class MonacoSidebar {
 
 	/**
 	 * @author Inez Korczynski <inez@wikia.com>
-	 * @return array
+	 * @param string $messageKey
+	 * @return array|null
 	 */
 	public static function getMessageAsArray($messageKey) {
         $message = trim(wfMessage($messageKey)->inContentLanguage()->text());
@@ -103,6 +102,9 @@ class MonacoSidebar {
         return null;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getCode() {
 		global $wgUser, $wgTitle, $wgRequest, $wgMemc, $wgLang, $wgContLang;
         
@@ -120,6 +122,9 @@ class MonacoSidebar {
 		return $menu;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getMenuLines() {
 /*		# if a local copy exists, try to use that first
 		$revision = Revision::newFromTitle(Title::newFromText('Monaco-sidebar', NS_MEDIAWIKI));
@@ -135,6 +140,11 @@ class MonacoSidebar {
 		return $lines;
 	}
 
+	/**
+	 * @param array $nodes
+	 * @param array $children
+	 * @return string
+	 */
 	public function getSubMenu($nodes, $children) {
 		$menu = '';
 		foreach($children as $key => $val) {
@@ -160,6 +170,11 @@ class MonacoSidebar {
 		return $menu;
 	}
 
+	/**
+	 * @param array $lines
+	 * @param bool $userMenu
+	 * @return bool
+	 */
 	public function getMenu($lines, $userMenu = false) {
 		global $wgMemc, $wgScript;
 
@@ -243,6 +258,10 @@ class MonacoSidebar {
 		}
 	}
 
+	/**
+	 * @param array &$node
+	 * @return bool
+	 */
 	public function handleMagicWord(&$node) {
 		$original_lower = strtolower($node['original']);
 		if(in_array($original_lower, [ '#voted#', '#popular#', '#visited#', '#newlychanged#', '#topusers#' ] )) {
@@ -299,7 +318,7 @@ class MonacoSidebar {
 	 * Grabs the sidebar for the current user's groups
 	 *
 	 * @param User $user
-	 * @return string
+	 * @return array|string
 	 */
 	private static function doGroupSidebar( User $user ) {
 		// Get group membership array.
@@ -330,8 +349,8 @@ class MonacoSidebar {
     /**
      * Parse Sidebar Lines
      *
-     * @param Array $lines
-     * @param Array $nodes
+     * @param array $lines
+     * @param array $nodes
      */
     public function parseSidebar($lines) {
         global $wgUser;
@@ -389,8 +408,8 @@ class MonacoSidebar {
     /**
      * Parse Line of Sidebar
      *
-     * @param String $line
-     * @param Array $ret
+     * @param string $line
+     * @param array
      */
 	public function parseSidebarLine($line) {
 		$lineTmp = explode('|', trim($line, '* '), 2);
@@ -443,10 +462,10 @@ class MonacoSidebar {
     /**
      * Process a List of Elements and add them to the corrent position in the current menu
      *
-     * @param Array $lines A List of Menu Elements which shoul'd be added
-     * @param Integer $lastDepth Last depth
-     * @param Array $nodes A List of Current Menu Elements
-     * @param Integer $i Index of the Newest Item in Current Menu
+     * @param array $lines A List of Menu Elements which shoul'd be added
+     * @param int $lastDepth Last depth
+     * @param array $nodes A List of Current Menu Elements
+     * @param int $i Index of the Newest Item in Current Menu
      */
     function processSpecialSidebar($lines,&$lastDepth, &$nodes, &$i) {
         
@@ -470,13 +489,13 @@ class MonacoSidebar {
      * Calculate and Add the Depth of the current Node.
      * Set the Array Index of the Parent Node to the Current Node
      *
-     * @param String $line
-     * @param Array $node
-     * @param Array $nodes
-     * @param Integer $index
-     * @param Integer $lastDepth
+     * @param string $line
+     * @param array $node
+     * @param array $nodes
+     * @param int $index
+     * @param int $lastDepth
      *
-     * @return Array $node 
+     * @return array $node 
      */
     function addDepthParentToNode($line, $node, &$nodes, &$index, &$lastDepth) {
 
