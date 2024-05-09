@@ -15,6 +15,8 @@ use MediaWiki\MediaWikiServices;
 
 class MonacoTemplate extends BaseTemplate {
 
+	private $mRightSidebar = '';
+
 	/*
 	 * Build returnto parameter with new returntoquery from MW 1.16
 	 *
@@ -255,10 +257,10 @@ if ($custom_article_footer !== '') {
 				// haleyjd 20171009: must use LinkRenderer for 1.28 and up
 				if(class_exists('\\MediaWiki\\MediaWikiServices') && method_exists('\\MediaWiki\\MediaWikiServices', 'getLinkRenderer')) {
 					$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-					echo wfMessage('monaco-footer-lastedit')->rawParams($linkRenderer->makeLink($userPageTitle, $user->getName(), [ 'id' => 'fe_user_link' ] ), Html::element( 'time', [ 'datetime' => wfTimestamp( TS_ISO_8601, $$timestamp ) ], $lastUpdate))->escaped();
+					echo wfMessage('monaco-footer-lastedit')->rawParams($linkRenderer->makeLink($userPageTitle, $user->getName(), [ 'id' => 'fe_user_link' ] ), Html::element( 'time', [ 'datetime' => wfTimestamp( TS_ISO_8601, $timestamp ) ], $lastUpdate))->escaped();
 				} else {
 					// TODO: remove once 1.28 is minimum supported.
-					echo wfMessage('monaco-footer-lastedit')->rawParams($skin->link($userPageTitle, htmlspecialchars($user->getName()), [ 'id' => 'fe_user_link' ] ), Html::element( 'time', [ 'datetime' => wfTimestamp( TS_ISO_8601, $$timestamp ) ], $lastUpdate))->escaped();
+					echo wfMessage('monaco-footer-lastedit')->rawParams($skin->link($userPageTitle, htmlspecialchars( $user->getName() ), [ 'id' => 'fe_user_link' ] ), Html::element( 'time', [ 'datetime' => wfTimestamp( TS_ISO_8601, $timestamp ) ], $lastUpdate))->escaped();
 				} ?></div></li>
 <?php
 			}
@@ -978,7 +980,7 @@ $this->html('reporttime');
 			$attrs['class'] .= " {$list['class']}";
 		}
 		
-		$this->printCustomPageBarListLinks( $list['links'], $attrs, "			", $list['bad_hook'] );
+		$this->printCustomPageBarListLinks( $list['links'], $attrs, "			", isset( $list['bad_hook'] ) ? $list['bad_hook'] : 'MonacoAfterArticleLinks' );
 	}
 	
 	function printCustomPageBarListLinks( $links, $attrs = [], $indent = '', $hook = null ) {
