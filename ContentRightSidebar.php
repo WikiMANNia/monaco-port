@@ -17,7 +17,7 @@ $wgExtensionCredits['parserhook'][] = [
   'name' => 'ContentRightSidebar',
   'author' => [
       '[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]',
-      '[http://doomwiki.org/wiki/User:Quasar James Haley]'),
+      '[http://doomwiki.org/wiki/User:Quasar James Haley]',
       'Roger Meier'
   	],
   'descriptionmsg' => 'monacocontentrightsidebar-desc',
