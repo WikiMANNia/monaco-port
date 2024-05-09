@@ -1,6 +1,9 @@
 {
 	"name": "Monaco",
-	"version": "0.0.2",
+	"version": "2.4.9",
+	"requires": {
+		"MediaWiki": ">= 1.27.0"
+	},
 	"author": [
 		"Inez Korczyński",
 		"Christian Williams",

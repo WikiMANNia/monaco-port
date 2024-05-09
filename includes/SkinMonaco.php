@@ -10,9 +10,6 @@
  * @author Daniel Friesen
  * @author James Haley
  */
-if(!defined('MEDIAWIKI')) {
-	die(-1);
-}
 
 use MediaWiki\MediaWikiServices;
 
@@ -196,7 +193,12 @@ class SkinMonaco extends SkinTemplate {
 		//wfProfileIn(__METHOD__);
 		global $wgLang, $wgContLang, $wgUser, $wgRequest, $wgTitle;
 		
-		$pc = MediaWikiServices::getInstance()->getParserCache()->getCacheStorage();
+		global $parserMemc; // for backward compatibility
+		
+		$pc = 
+			empty( $parserMemc )
+			? MediaWikiServices::getInstance()->getParserCache()->getCacheStorage()
+			: $parserMemc;;
 
 		// We want to cache populated data only if user language is same with wiki language
 		$cache = $wgLang->getCode() == $wgContLang->getCode();

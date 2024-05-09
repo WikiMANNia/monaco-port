@@ -155,8 +155,8 @@ class MonacoSidebar {
 			
 			$menu_item =
 				Html::rawElement( 'a', [
-						'href' => !empty($nodes[$val]['href']) ? $nodes[$val]['href'] : '#',
-						'class' => $nodes[$val]['class'] ?? null,
+						'href' => empty($nodes[$val]['href']) ? '#' : $nodes[$val]['href'],
+						'class' => empty($nodes[$val]['class']) ? null : $nodes[$val]['class'],
 						'tabIndex' => 3,
 						'rel' => $nodes[$val]['internal'] ? null : 'nofollow'
 					], $link_html ) . "\n";

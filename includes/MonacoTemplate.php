@@ -161,8 +161,8 @@ class MonacoTemplate extends BaseTemplate {
 					<div id="bodyContent" class="body_content">
 						<h2 id="siteSub"><?php $this->msg('tagline') ?></h2>
 						<?php if($this->data['subtitle']) { ?><div id="contentSub"><?php $this->html('subtitle') ?></div><?php } ?>
-						<?php if($this->data['undelete']) { ?><div id="contentSub2"><?php     $this->html('undelete') ?></div><?php } ?>
-						<?php if($this->data['newtalk'] ) { ?><div class="usermessage noprint"><?php $this->html('newtalk')  ?></div><?php } ?>
+						<?php if($this->data['undelete']) { ?><div id="contentSub2"><?php $this->html('undelete') ?></div><?php } ?>
+						<?php if($this->data['newtalk'] ) { ?><div class="usermessage noprint"><?php $this->html('newtalk') ?></div><?php } ?>
 						<?php if(!empty($skin->newuemsg)) { echo $skin->newuemsg; } ?>
 
 						<!-- start content -->
@@ -287,8 +287,8 @@ if ($custom_article_footer !== '') {
 			if(!empty($this->data['content_actions']['history'])) 
 			{
 				$feHistoryIcon = $this->blankimg( [ 'id' => 'fe_history_img', 'class' => 'sprite history', 'alt' => '' ] );
-				$feHistoryIcon = Html::rawElement( 'a', [ 'id' => 'fe_history_icon', 'href' => $this->data['content_actions']['history']['href'] ], $feHistoryIcon);
-				$feHistoryLink = Html::rawElement( 'a', [ 'id' => 'fe_history_link', 'href' => $this->data['content_actions']['history']['href'] ], $this->data['content_actions']['history']['text']);
+				$feHistoryIcon = Html::rawElement( 'a', [ 'id' => 'fe_history_icon', 'href' => $this->data['content_actions']['history']['href'] ], $feHistoryIcon );
+				$feHistoryLink = Html::rawElement( 'a', [ 'id' => 'fe_history_link', 'href' => $this->data['content_actions']['history']['href'] ], $this->data['content_actions']['history']['text'] );
 ?>
 								<li id="fe_history"><?php echo $feHistoryIcon ?> <div><?php echo $feHistoryLink ?></div></li>
 <?php
