@@ -25,12 +25,13 @@ class MonacoTemplate extends BaseTemplate {
 	 */
 	static function getReturntoParam($customReturnto = null) {
 		global $wgTitle, $wgRequest;
-		
-		if ($customReturnto) {
-			$returnto = "returnto=$customReturnto";
+
+		$returnto = 'returnto=';
+
+		if ( !empty( $customReturnto ) ) {
+			$returnto .= $customReturnto;
 		} else {
-			$thisurl = $wgTitle->getPrefixedURL();
-			$returnto = "returnto=$thisurl";
+			$returnto .= $wgTitle->getPrefixedURL();
 		}
 		
 		if (!$wgRequest->wasPosted()) {
@@ -39,8 +40,9 @@ class MonacoTemplate extends BaseTemplate {
 			unset($query['returnto']);
 			unset($query['returntoquery']);
 			$thisquery = wfUrlencode(wfArrayToCGI($query));
-			if($thisquery != '')
+			if( !empty( $thisquery ) ) {
 				$returnto .= "&returntoquery=$thisquery";
+			}
 		}
 		return $returnto;
 	}
