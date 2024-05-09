@@ -85,7 +85,7 @@ class MonacoSidebar {
 			}
 		}
 
-		return array('text' => $text, 'href' => $href, 'org' => $line_temp[0], 'desc' => $descText, 'specialCanonicalName' => $specialCanonicalName);
+		return [ 'text' => $text, 'href' => $href, 'org' => $line_temp[0], 'desc' => $descText, 'specialCanonicalName' => $specialCanonicalName ];
 	}
 
 	/**
@@ -144,19 +144,19 @@ class MonacoSidebar {
 			}
 			
 			$menu_item =
-				Html::rawElement( 'a', array(
+				Html::rawElement( 'a', [
 						'href' => !empty($nodes[$val]['href']) ? $nodes[$val]['href'] : '#',
 						'class' => $nodes[$val]['class'],
 						'tabIndex' => 3,
 						'rel' => $nodes[$val]['internal'] ? null : 'nofollow'
-					), $link_html ) . "\n";
+					], $link_html ) . "\n";
 			if ( !empty( $nodes[$val]['children'] ) ) {
 				$menu_item .= $this->getSubMenu( $nodes, $nodes[$val]['children'] );
 			}
 			$menu .=
-				Html::rawElement( 'li', array( "class" => "menu-item" ), $menu_item );
+				Html::rawElement( 'li', [ "class" => "menu-item" ], $menu_item );
 		}
-		$menu = Html::rawElement( 'ul', array( 'class' => 'sub-menu widget' ), $menu );
+		$menu = Html::rawElement( 'ul', [ 'class' => 'sub-menu widget' ], $menu );
 		return $menu;
 	}
 
@@ -167,9 +167,9 @@ class MonacoSidebar {
         
 		if(count($nodes) > 0) {
 			
-			Hooks::run('MonacoSidebarGetMenu', array(&$nodes));
+			Hooks::run('MonacoSidebarGetMenu', [ &$nodes ] );
 			
-			$mainMenu = array();
+			$mainMenu = [];
 			foreach($nodes[0]['children'] as $key => $val) {
 				if(isset($nodes[$val]['children'])) {
 					$mainMenu[$val] = $nodes[$val]['children'];
@@ -198,12 +198,12 @@ class MonacoSidebar {
 				if(isset($nodes[$val]['href']) && $nodes[$val]['href'] == 'editthispage') $menu .= '<!--e-->';
 			}
 			
-			$classes = array();
+			$classes = [];
 			if ( $userMenu )
 				$classes[] = 'userMenu';
 			$classes[] = 'hover-navigation';
 			$menu = Html::rawElement( 'ul', null, $menu );
-			$menu = Html::rawElement( 'nav', array( 'id' => 'navigation', 'class' => implode(' ', $classes) ), $menu );
+			$menu = Html::rawElement( 'nav', [ 'id' => 'navigation', 'class' => implode(' ', $classes) ], $menu );
 
 			if($this->editUrl) {
 				$menu = str_replace('href="editthispage"', 'href="'.$this->editUrl.'"', $menu);
@@ -245,8 +245,8 @@ class MonacoSidebar {
 
 	public function handleMagicWord(&$node) {
 		$original_lower = strtolower($node['original']);
-		if(in_array($original_lower, array('#voted#', '#popular#', '#visited#', '#newlychanged#', '#topusers#'))) {
-			if($node['text']{0} == '#') {
+		if(in_array($original_lower, [ '#voted#', '#popular#', '#visited#', '#newlychanged#', '#topusers#' ] )) {
+			if($node['text'][0] == '#') {
 				$node['text'] = wfMessage(trim($node['original'], ' *'))->text(); // TODO: That doesn't make sense to me
 			}
 			$node['magic'] = trim($original_lower, '#');
@@ -261,7 +261,7 @@ class MonacoSidebar {
 			}
 			if($name) {
 				$node['href'] = Title::makeTitle(NS_CATEGORY, $name)->getLocalURL();
-				if($node['text']{0} == '#') {
+				if($node['text'][0] == '#') {
 					$node['text'] = str_replace('_', ' ', $name);
 				}
 				$node['magic'] = 'category'.$name;
@@ -312,7 +312,7 @@ class MonacoSidebar {
 		}
 
 		$text = '';
-		foreach ( $groups as $group ) {          
+		foreach ( $groups as $group ) {
 			// Form the path to the article:
 			// MediaWiki:Monaco-sidebar/<group>
 			$title = Title::makeTitle( NS_MEDIAWIKI, 'Monaco-sidebar/Group:' . $group );
@@ -336,7 +336,7 @@ class MonacoSidebar {
     public function parseSidebar($lines) {
         global $wgUser;
    
-  		$nodes = array();
+  		$nodes = [];
 		$lastDepth = 0;
 		$i = 0;
 		if(is_array($lines) && count($lines) > 0) {
@@ -368,7 +368,7 @@ class MonacoSidebar {
 					if($node['depth'] == 1) {
 						$nodes[0]['editthispage'] = true; // we have to know later if there is editthispage special word used in first level
 					}
-				} else if(!empty( $node['original'] ) && $node['original']{0} == '#') {
+				} else if(!empty( $node['original'] ) && $node['original'][0] == '#') {
 					if($this->handleMagicWord($node)) {
 						$nodes[0]['magicWords'][] = $node['magic'];
 						if($node['depth'] == 1) {
@@ -421,7 +421,7 @@ class MonacoSidebar {
 		} else {
 			if(empty($link)) {
 				$href = '#';
-			} else if($link{0} == '#') {
+			} else if($link[0] == '#') {
 				$href = '#';
 			} else {
 				$title = Title::newFromText($link);
@@ -434,7 +434,7 @@ class MonacoSidebar {
 			}
 		}
 
-		$ret = array('original' => $lineTmp[0], 'text' => $text);
+		$ret = [ 'original' => $lineTmp[0], 'text' => $text ];
 		$ret['href'] = $href;
 		$ret['internal'] = $internal;
 		return $ret;

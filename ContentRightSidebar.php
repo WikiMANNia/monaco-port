@@ -12,13 +12,13 @@
 if(!defined('MEDIAWIKI'))
   die( "This is an extension to the MediaWiki package and cannot be run standalone." );
 
-$wgExtensionCredits['parserhook'][] = array (
+$wgExtensionCredits['parserhook'][] = [
   'path' => __FILE__,
   'name' => 'ContentRightSidebar',
   'author' => array('[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]', '[http://doomwiki.org/wiki/User:Quasar James Haley]'),
   'descriptionmsg' => 'contentrightsidebar-desc',
   'url' => "https://github.com/haleyjd/monaco-port",
-);
+];
 
 //$wgExtensionMessagesFiles['ContentRightSidebar'] = dirname(__FILE__).'/ContentRightSidebar.i18n.php';
 $wgMessagesDirs['ContentRightSidebar'] = __DIR__ . '/crs.i18n';
