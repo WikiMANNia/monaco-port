@@ -1,6 +1,6 @@
 {
 	"name": "Monaco",
-	"version": "2.5.0",
+	"version": "2.6.0",
 	"requires": {
 		"MediaWiki": ">= 1.27.0"
 	},
@@ -38,7 +38,11 @@
 		"MonacoUseMoreButton" : true,
 		"MonacoUseSitenoticeIsland" : false,
 		"MonacoUseMasthead" : true,
-		"MonacoCompactSpecialPages" : false
+		"MonacoCompactSpecialPages" : false,
+		"MonacoEnablePaypal" : false,
+		"MonacoPaypalID" : "",
+		"MonacoEnablePatreon" : false,
+		"MonacoPatreonURL" : ""
     },		
 	"Hooks": {
 		"PageContentSaveComplete": [

@@ -583,19 +583,32 @@ if ($custom_article_footer !== '') {
 					</ul>
 				</td>
 			</tr>
-			<!-- haleyjd 20140420: FIXME: DoomWiki.org-specific; make generic! -->
-			<!--
+<?php
+		global $wgMonacoEnablePaypal, $wgMonacoPaypalID, $wgMonacoEnablePatreon, $wgMonacoPatreonURL;
+		if ( $wgMonacoEnablePaypal && !empty( $wgMonacoPaypalID ) ) {
+?>
 			<tr>
 				<td colspan="2" style="text-align:center;">
-					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-						<input type="hidden" name="cmd" value="_s-xclick">
-						<input type="hidden" name="hosted_button_id" value="D5MLUSDXA8HMQ">
-						<input type="image" src="<?php $this->text('stylepath') ?>/Monaco/style/images/contribute-button.png" name="submit" alt="PayPal - The safer, easier way to pay online!" style="border: 0; width:139px; margin:0;">
-						<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="border: 0;">
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" title="PayPal">
+						<input type="hidden" name="cmd" value="_s-xclick" />
+						<input type="hidden" name="hosted_button_id" value="<?php echo $wgMonacoPaypalID ?>" />
+						<input type="image" src="<?php $this->text('stylepath') ?>/Monaco/style/images/paypal.png" name="submit" alt="PayPal - The safer, easier way to pay online!" style="border: 0; width:139px; margin:0;" />
+						<img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="border: 0;" />
 					</form>
 				</td>
 			</tr>
-			-->
+<?php
+		}
+		if ( $wgMonacoEnablePatreon && !empty( $wgMonacoPatreonURL ) ) {
+?>
+			<tr>
+				<td colspan="2" style="text-align:center;">
+					<a href="<?php echo $wgMonacoPatreonURL ?>" target="_blank" rel="nofollow"><img alt="Patreon" src="<?php $this->text('stylepath') ?>/Monaco/style/images/patreon.png" width="139" height="37" /></a>
+				</td>
+			</tr>
+<?php
+		}
+?>
 		</tbody>
 <?php
 	}
