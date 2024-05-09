@@ -893,7 +893,7 @@ $this->html('reporttime');
 		}
 		
 		$bar = [];
-		if ( isset($this->data['articlelinks']['right']) ) {
+		if ( isset( $this->data['articlelinks']['right'] ) ) {
 			$bar[] = [
 				'id' => 'page_tabs',
 				'type' => 'tabs',
@@ -901,7 +901,7 @@ $this->html('reporttime');
 				'links' => $this->data['articlelinks']['right'],
 			];
 		}
-		if ( isset($this->data['articlelinks']['variants']) ) {
+		if ( isset( $this->data['articlelinks']['variants'] ) ) {
 			global $wgContLang;
 			$preferred = $wgContLang->getPreferredVariant();
 			$bar[] = [
@@ -918,13 +918,15 @@ $this->html('reporttime');
 				]
 			];
 		}
-		$bar[] = [
-			'id' => 'page_controls',
-			'type' => 'buttons',
-			'class' => 'page_controls',
-			'bad_hook' => 'MonacoAfterArticleLinks',
-			'links' => $this->data['articlelinks']['left'],
-		];
+		if ( isset( $this->data['articlelinks']['left'] ) ) {
+			$bar[] = [
+				'id' => 'page_controls',
+				'type' => 'buttons',
+				'class' => 'page_controls',
+				'bad_hook' => 'MonacoAfterArticleLinks',
+				'links' => $this->data['articlelinks']['left'],
+			];
+		}
 		$this->printCustomPageBar( $bar );
 	}
 
