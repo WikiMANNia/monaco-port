@@ -1,6 +1,6 @@
 {
 	"name": "Monaco",
-	"version": "2.4.9",
+	"version": "2.5.0",
 	"requires": {
 		"MediaWiki": ">= 1.27.0"
 	},

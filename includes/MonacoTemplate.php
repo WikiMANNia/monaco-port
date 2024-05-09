@@ -369,8 +369,8 @@ if ($custom_article_footer !== '') {
 			<noscript><link rel="stylesheet" property="stylesheet" type="text/css" href="<?php $this->text( 'stylepath' ) ?>/Monaco/style/css/noscript.css?<?php echo $wgStyleVersion ?>" /></noscript>
 <?php
 	if(!($wgRequest->getVal('action') != '' || $namespace == NS_SPECIAL)) {
-		$this->html('JSloader');
-		$this->html('headscripts');
+		$this->get('JSloader');
+		$this->get('headscripts');
 	}
 ?>
 		</div>
