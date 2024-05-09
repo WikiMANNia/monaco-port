@@ -4,5 +4,5 @@
 			"Justman10000"
 		]
 	},
-	"contentrightsidebar-desc": "Fügt einen Parser-Tag mit der Möglichkeit hinzu, Inhalte der rechten Seitenleiste zum Monaco-Skin hinzuzufügen."
+	"monacocontentrightsidebar-desc": "Fügt einen Parser-Tag mit der Möglichkeit hinzu, Inhalte der rechten Seitenleiste zum Monaco-Skin hinzuzufügen."
 }

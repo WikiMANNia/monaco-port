@@ -15,9 +15,13 @@ if(!defined('MEDIAWIKI'))
 $wgExtensionCredits['parserhook'][] = [
   'path' => __FILE__,
   'name' => 'ContentRightSidebar',
-  'author' => array('[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]', '[http://doomwiki.org/wiki/User:Quasar James Haley]'),
-  'descriptionmsg' => 'contentrightsidebar-desc',
-  'url' => "https://github.com/haleyjd/monaco-port",
+  'author' => [
+      '[http://mediawiki.org/wiki/User:Dantman Daniel Friesen]',
+      '[http://doomwiki.org/wiki/User:Quasar James Haley]'),
+      'Roger Meier'
+  	],
+  'descriptionmsg' => 'monacocontentrightsidebar-desc',
+  'url' => "https://github.com/beleggrodion/monaco-port",
 ];
 
 //$wgExtensionMessagesFiles['ContentRightSidebar'] = dirname(__FILE__).'/ContentRightSidebar.i18n.php';
