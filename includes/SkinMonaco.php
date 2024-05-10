@@ -41,7 +41,10 @@ class SkinMonaco extends SkinTemplate {
 
 
     public function __construct() {
-        $this->monacoConfig = \MediaWiki\MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'monaco' );
+        $this->monacoConfig =
+			( class_exists('\\MediaWiki\\MediaWikiServices') && method_exists('\\MediaWiki\\MediaWikiServices', 'getInstance') )
+			? MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'monaco' )
+			: ConfigFactory::getDefaultInstance()->makeConfig( 'monaco' );
 	}
 
 	/**

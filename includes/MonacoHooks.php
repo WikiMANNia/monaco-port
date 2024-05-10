@@ -13,8 +13,10 @@ class MonacoHooks {
 	 */
 	public static function onGetPreferences( $user, &$preferences ) {
 
-		$monacoConfig = \MediaWiki\MediaWikiServices::getInstance()->getConfigFactory()
-			->makeConfig( 'monaco' );
+		$monacoConfig = 
+			( class_exists('\\MediaWiki\\MediaWikiServices') && method_exists('\\MediaWiki\\MediaWikiServices', 'getInstance') )
+			? MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'monaco' )
+			: ConfigFactory::getDefaultInstance()->makeConfig( 'monaco' );
 
 		$ctx = RequestContext::getMain();
 		$skin = $ctx->getSkin();

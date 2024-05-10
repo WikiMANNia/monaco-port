@@ -35,7 +35,7 @@ class MonacoSidebar {
 
 		$line_temp = explode('|', trim($line, '* '), 3);
 		$line_temp[0] = trim($line_temp[0], '[]');
-		if(count($line_temp) >= 2 && $line_temp[1] != '') {
+		if( ( count($line_temp) >= 2 ) && ( $line_temp[1] != '' ) ) {
 			$line = trim($line_temp[1]);
 			$link = trim(wfMessage($line_temp[0])->inContentLanguage()->text());
 		} else {
@@ -46,7 +46,7 @@ class MonacoSidebar {
 
 		$descText = null;
 
-		if(count($line_temp) > 2 && $line_temp[2] != '') {
+		if( ( count($line_temp) > 2 ) && ( $line_temp[2] != '' ) ) {
 			$desc = $line_temp[2];
 			if (wfMessage($desc)->exists()) {
 				$descText = wfMessage($desc)->text();

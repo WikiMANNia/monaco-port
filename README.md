@@ -18,7 +18,7 @@ continue to support them.
 New features in this fork over `haleyjd/monaco-port` include:  
 
 * First Version that support MediaWiki version 1.31
-* Tested with 1.27.7, 1.31.16, 1.35.14
+* Tested with 1.25.6, 1.27.7, 1.31.16, 1.35.14
 * Implementation of extending the Sidebar Menu with User and Group Sidebar Elements
   like Extension "DynamicSidebar"
 
